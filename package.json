@@ -1,0 +1,20 @@
+{
+  "name": "@arc-studio/monorepo",
+  "version": "1.0.0",
+  "description": "Advanced Resource Center Studio (ARC Studio), a monorepo.",
+  "scripts": {
+    "dev": "turbo dev --parallel",
+    "build": "turbo build --parallel"
+  },
+  "dependencies": {
+    "turbo": "^2.5.4"
+  },
+  "packageManager": "pnpm@10.9.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "keywords": [],
+  "author": "Israel R. Jatobá",
+  "license": "ISC"
+}

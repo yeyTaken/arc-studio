@@ -1,0 +1,75 @@
+@import './theme.css';
+
+/* Remove position: relative e overflow: hidden do body */
+body {
+  background: radial-gradient(ellipse at center, 
+    #091521 0%, 
+    #080f18 70%, 
+    #040a10 100%
+  );
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden; /* apenas oculta scroll lateral, mas permite scroll vertical */
+}
+
+/* Grade com gradiente de transparência */
+.grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--grid-line-color) var(--grid-line-thickness), transparent var(--grid-line-thickness)),
+    linear-gradient(to bottom, var(--grid-line-color) var(--grid-line-thickness), transparent var(--grid-line-thickness));
+  background-size: var(--grid-size) var(--grid-size);
+  mask-image: radial-gradient(
+    ellipse at center, 
+    rgba(0,0,0,1) 0%, 
+    rgba(0,0,0,0.8) 40%, 
+    rgba(0,0,0,0) 70%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse at center, 
+    rgba(0,0,0,1) 0%, 
+    rgba(0,0,0,0.8) 40%, 
+    rgba(0,0,0,0) 70%
+  );
+  opacity: 0.8;
+  z-index: -10;
+}
+
+/* Partículas */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -30;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+  animation: float 15s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(10px, 15px);
+  }
+  50% {
+    transform: translate(20px, 5px);
+  }
+  75% {
+    transform: translate(5px, 20px);
+  }
+}
