@@ -1,11 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { LuLayoutPanelLeft } from "react-icons/lu"; // não usado mais
-import { GoProjectRoadmap } from "react-icons/go";
-import { FaBars, FaGithub } from "react-icons/fa"; // GitHub importado
+import { FaBars } from "react-icons/fa";
 
 import ARCStudioTitle from "../title";
+import { items } from "@/config/navItems";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -38,46 +38,6 @@ export default function Navbar() {
   }, []);
 
   const isCompact = isScrolled || isMobile;
-
-  interface NavItem {
-    href: string;
-    label?: string;
-    icon: React.ReactNode;
-    position?: "left" | "right";
-  }
-
-    interface NavItemCompact {
-    href: string;
-    label?: string;
-    icon: React.ReactNode;
-  }
-
-  interface NavbarItems {
-    isCompact: Record<string, NavItemCompact>;
-    notCompact: Record<string, NavItem>;
-  }
-
-  const items: NavbarItems = {
-    isCompact: {
-      projects: {
-        href: "/#",
-        label: "Projetos",
-        icon: <GoProjectRoadmap />,
-      },
-    },
-    notCompact: {
-      projects: {
-        href: "/#",
-        label: "Projetos",
-        icon: <GoProjectRoadmap className="text-lg" />,
-        position: "left",
-      },
-      github: {
-        href: "/#",
-        icon: <FaGithub className="text-lg" />,
-      },
-    },
-  };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -141,22 +101,22 @@ export default function Navbar() {
       >
         {/* Lado esquerdo: Título + itens "left" */}
         <div className="flex items-center gap-2">
-          <a href="/" className="flex-shrink-0">
+          <Link href="/" className="flex-shrink-0">
             <ARCStudioTitle />
-          </a>
+          </Link>
           {!isCompact && (
             <nav className="flex gap-2 text-sm">
               {Object.entries(items.notCompact)
-                .filter(([_, item]) => item.position === "left")
+                .filter(([, item]) => item.position === "left")
                 .map(([key, item]) => (
-                  <a
+                  <Link
                     key={key}
                     href={item.href}
                     className="flex items-center gap-1 px-3 py-1 rounded"
                   >
                     {item.icon}
                     <span className="cursor-pointer">{item.label}</span>
-                  </a>
+                  </Link>
                 ))}
             </nav>
           )}
@@ -167,16 +127,16 @@ export default function Navbar() {
           {!isCompact && (
             <nav className="flex gap-2 text-sm">
               {Object.entries(items.notCompact)
-                .filter(([_, item]) => item.position !== "left")
+                .filter(([, item]) => item.position !== "left")
                 .map(([key, item]) => (
-                  <a
+                  <Link
                     key={key}
                     href={item.href}
                     className="flex items-center gap-1 px-3 py-1 rounded"
                   >
                     {item.icon}
                     <span className="cursor-pointer">{item.label}</span>
-                  </a>
+                  </Link>
                 ))}
             </nav>
           )}
@@ -210,19 +170,19 @@ export default function Navbar() {
             ? "translateY(0) scale(1)"
             : "translateY(-10px) scale(0.95)",
         }}
-        className="bg-[#0a121db5] rounded-lg shadow-lg border border-grid-line backdrop-blur-sm z-50"
+        className="select-none bg-[#0a121db5] rounded-lg shadow-lg border border-grid-line backdrop-blur-sm z-50"
       >
         <ul className="flex flex-col p-3 gap-2">
           {Object.entries(items.isCompact).map(([key, item]) => (
             <li key={key}>
-              <a
+              <Link
                 href={item.href}
                 className="flex items-center gap-2 px-3 py-2 rounded hover:bg-[#141e2e75] transition-colors backdrop-blur-sm"
                 onClick={() => setMenuOpen(false)}
               >
                 {item.icon}
                 <span>{item.label}</span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

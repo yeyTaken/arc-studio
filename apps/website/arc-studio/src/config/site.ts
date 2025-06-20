@@ -6,7 +6,6 @@ export const siteConfig = {
 
   links: {
     github: "https://github.com/yeyTaken/arc-studio",
-    twitter: "https://twitter.com/yeyTaken",
     site: "https://arc-studio.com",
     discord: "https://discord.gg/9b6yyZKmH4",
     sponsor: "https://patreon.com/yeyTaken",

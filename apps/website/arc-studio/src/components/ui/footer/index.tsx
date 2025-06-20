@@ -1,15 +1,16 @@
+import Link from "next/link";
 import { FaInstagram, FaFacebookF, FaYoutube, FaGlobe } from "react-icons/fa";
 
 import ARCStudioTitle from "../title";
 
 export default function Footer() {
   return (
-    <footer className="w-full py-14 bg-[#0a121d6b] border-t border-grid-line backdrop-blur-md">
+    <footer className="select-none w-full py-14 bg-[#0a121d6b] border-t border-grid-line backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <a href="/" className="flex justify-center ">
+          <Link href="/" className="flex justify-center ">
             <ARCStudioTitle />
-          </a>
+          </Link>
 
           <ul className="text-lg flex items-center justify-center flex-col gap-7 md:flex-row md:gap-12 transition-all duration-500 py-16 mb-10 border-b border-grid-line">
             <li>
@@ -75,9 +76,9 @@ export default function Footer() {
 
           <span className="text-lg text-gray-500 text-center block">
             ©{" "}
-            <a href="/">
+            <Link href="/">
               <ARCStudioTitle />
-            </a>{" "}
+            </Link>{" "}
             2025, Todos os direitos reservados.
           </span>
         </div>
