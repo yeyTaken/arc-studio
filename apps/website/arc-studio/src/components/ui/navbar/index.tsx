@@ -93,10 +93,10 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`select-none fixed top-4 left-1/2 -translate-x-1/2 flex justify-between items-center backdrop-blur-sm z-50 border border-grid-line shadow-md transition-[width,height,padding,background-color] ease-in-out duration-500 ${
+        className={`select-none fixed top-4 left-1/2 -translate-x-1/2 flex justify-between items-center backdrop-blur-sm z-50 border border-grid-line shadow-lg transition-[width,height,padding,background-color,border-radius,transform] duration-500 ease-in-out ${
           isCompact
-            ? "w-[420px] h-12 px-4 rounded-full bg-[#0a121de0]"
-            : "w-[95%] px-8 py-3 rounded-2xl bg-[#0a121d61]"
+            ? "max-w-[420px] w-[90%] h-12 px-4 mx-auto rounded-full bg-[#0a121de0] scale-[0.97]"
+            : "w-[95%] px-8 py-3 rounded-2xl bg-[#0a121d61] scale-100"
         }`}
       >
         {/* Lado esquerdo: Título + itens "left" */}

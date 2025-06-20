@@ -31,9 +31,11 @@ export default function RootLayout({
       >
         <Background />
         <Navbar />
-        <main>
+        
+        <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
           {children}
         </main>
+
         <Footer />
       </body>
     </html>
