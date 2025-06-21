@@ -1,3 +1,5 @@
+import { siteConfig } from "@/config/site";
+import { FaGithub, FaUserShield } from "react-icons/fa6";
 import { MdCollectionsBookmark, MdOutlineWorkspacePremium } from "react-icons/md";
 
 export const itemsCompact: Record<string, NavItemBase> = {
@@ -10,5 +12,13 @@ export const itemsCompact: Record<string, NavItemBase> = {
     href: "/services",
     label: "Serviços",
     icon: <MdOutlineWorkspacePremium className="text-lg" />
+  },
+  team: {
+    href: "/team",
+    icon: <FaUserShield className="text-lg" />
+  },
+  github: {
+    href: siteConfig.links.github,
+    icon: <FaGithub className="text-lg" />,
   },
 };

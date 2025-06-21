@@ -105,14 +105,14 @@ export default function Navbar() {
             <ARCStudioTitle />
           </Link>
           {!isCompact && (
-            <nav className="flex gap-2 text-sm">
+            <nav className="flex gap-1 text-sm">
               {Object.entries(items.notCompact)
                 .filter(([, item]) => item.position === "left")
                 .map(([key, item]) => (
                   <Link
                     key={key}
                     href={item.href}
-                    className="flex items-center gap-1 px-3 py-1 rounded"
+                    className="flex items-center gap-[2px] px-2 py-0.5 rounded"
                   >
                     {item.icon}
                     <span className="cursor-pointer">{item.label}</span>
@@ -125,14 +125,14 @@ export default function Navbar() {
         {/* Lado direito: itens "right" + botão menu */}
         <div className="flex items-center gap-2">
           {!isCompact && (
-            <nav className="flex gap-2 text-sm">
+            <nav className="flex gap-1 text-sm">
               {Object.entries(items.notCompact)
                 .filter(([, item]) => item.position !== "left")
                 .map(([key, item]) => (
                   <Link
                     key={key}
                     href={item.href}
-                    className="flex items-center gap-1 px-3 py-1 rounded"
+                    className="flex items-center gap-[2px] px-2 py-0.5 rounded"
                   >
                     {item.icon}
                     <span className="cursor-pointer">{item.label}</span>
@@ -173,18 +173,39 @@ export default function Navbar() {
         className="select-none bg-[#0a121db5] rounded-lg shadow-lg border border-grid-line backdrop-blur-sm z-50"
       >
         <ul className="flex flex-col p-3 gap-2">
-          {Object.entries(items.isCompact).map(([key, item]) => (
-            <li key={key}>
-              <Link
-                href={item.href}
-                className="flex items-center gap-2 px-3 py-2 rounded hover:bg-[#141e2e75] transition-colors backdrop-blur-sm"
-                onClick={() => setMenuOpen(false)}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </Link>
-            </li>
-          ))}
+          {Object.entries(items.isCompact).map(([key, item]) =>
+            item.label ? (
+              <li key={key}>
+                <Link
+                  href={item.href}
+                  className="flex items-center gap-2 px-3 py-2 rounded hover:bg-[#141e2e75] transition-colors"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </Link>
+              </li>
+            ) : null
+          )}
+        </ul>
+
+        {/* Divisória */}
+        <div className="border-t border-grid-line mx-3 my-2"></div>
+
+        <ul className="flex flex-row p-3 gap-4 justify-center">
+          {Object.entries(items.isCompact).map(([key, item]) =>
+            !item.label ? (
+              <li key={key}>
+                <Link
+                  href={item.href}
+                  className="flex items-center justify-center p-2 rounded hover:bg-[#141e2e75] transition-colors"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.icon}
+                </Link>
+              </li>
+            ) : null
+          )}
         </ul>
       </div>
     </>
