@@ -1,4 +1,10 @@
 import ProjectsCard from "@/components/ProjectsCard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projetos",
+  description: "Explore nossos projetos desenvolvidos com foco em inovações, performance e boas práticas de desenvolvimento.",
+};
 
 export default function Home() {
   return (

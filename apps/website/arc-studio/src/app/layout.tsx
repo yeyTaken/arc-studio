@@ -11,11 +11,11 @@ import Footer from "@/components/ui/footer";
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    template: `${siteConfig.name} | %s`,
   },
   description: siteConfig.description,
   icons: {
-    icon: "/favicon.ico",
+    icon: "./favicon.png",
   },
 };
 

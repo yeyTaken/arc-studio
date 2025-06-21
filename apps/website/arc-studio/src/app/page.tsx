@@ -1,8 +1,12 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { TfiNewWindow } from "react-icons/tfi";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "ARC Studio | Início",
+  description: "Seu projeto merece o melhor — vamos torná-lo realidade com inovação e dedicação.",
+};
 
 export default function HomePage() {
   return (
