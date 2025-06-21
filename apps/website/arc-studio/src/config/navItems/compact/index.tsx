@@ -1,9 +1,14 @@
-import { MdCollectionsBookmark } from "react-icons/md";
+import { MdCollectionsBookmark, MdOutlineWorkspacePremium } from "react-icons/md";
 
 export const itemsCompact: Record<string, NavItemBase> = {
   projects: {
     href: "/projects",
     label: "Projetos",
-    icon: <MdCollectionsBookmark />,
+    icon: <MdCollectionsBookmark className="text-lg" />,
+  },
+  services: {
+    href: "/services",
+    label: "Serviços",
+    icon: <MdOutlineWorkspacePremium className="text-lg" />
   },
 };

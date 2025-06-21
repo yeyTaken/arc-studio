@@ -17,9 +17,6 @@ export default function NotFound() {
         </span>{" "}
         não foi encontrada.
       </p>
-      <p className="text-base text-[#9697ad]">
-        Verifique o endereço digitado ou volte para a página inicial.
-      </p>
     </div>
   );
 }
