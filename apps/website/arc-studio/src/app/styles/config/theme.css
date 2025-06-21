@@ -1,5 +1,6 @@
 :root {
   --color-bg: #0a121d;
+  --color-bg-variant: #0c1625;
   --color-fg: #d9dbf8;
 
   --grid-line-color: rgba(255, 255, 255, 0.03);
@@ -9,6 +10,7 @@
 
 @theme {
     --color-background: var(--color-bg);
+    --color-background-variant: var(--color-bg-variant);
     --color-foreground: var(--color-fg);
 
     --color-grid-line: var(--grid-line-color);

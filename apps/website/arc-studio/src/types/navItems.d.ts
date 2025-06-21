@@ -1,17 +1,14 @@
-interface NavItem {
+interface NavItemBase {
   href: string;
   label?: string;
   icon?: React.ReactNode;
+}
+
+interface NavItem extends NavItemBase {
   position?: "left" | "right";
 }
 
-interface NavItemCompact {
-  href: string;
-  label?: string;
-  icon?: React.ReactNode;
-}
-
 interface NavbarItems {
-  isCompact: Record<string, NavItemCompact>;
+  isCompact: Record<string, NavItemBase>;
   notCompact: Record<string, NavItem>;
 }

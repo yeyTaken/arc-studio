@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { FaBars } from "react-icons/fa";
 
 import ARCStudioTitle from "../title";
-import { items } from "@/config/navItems";
+import { items } from "@/config";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
