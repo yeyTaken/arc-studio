@@ -13,7 +13,7 @@ export const itemsNotCompact: Record<string, NavItem> = {
   projects: {
     href: "/projects",
     label: "Projetos",
-    icon: <MdCollectionsBookmark className="text-lg" />,
+    icon: <MdCollectionsBookmark className="text-lg" />
   },
   services: {
     label: "Serviços",

@@ -17,8 +17,6 @@ export default function Navbar() {
 
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  // Refs para dropdowns e botões não compacto (caso use)
   const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const dropdownRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
@@ -45,7 +43,6 @@ export default function Navbar() {
 
   const isCompact = isScrolled || isMobile;
 
-  // Fecha menu compacto clicando fora
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -65,7 +62,6 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
-  // Fecha dropdown não compacto clicando fora
   useEffect(() => {
     function handleClickOutsideDropdown(event: MouseEvent) {
       Object.entries(dropdownRefs.current).forEach(([key, dropdownEl]) => {
@@ -116,13 +112,9 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
-  const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
-  };
-
-  const toggleDropdown = (key: string) => {
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const toggleDropdown = (key: string) =>
     setShowDropdowns((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
 
   return (
     <>
@@ -133,36 +125,45 @@ export default function Navbar() {
             : "w-[95%] px-8 py-3 rounded-2xl bg-[#0a121d61] scale-100"
         }`}
       >
-        {/* Lado esquerdo */}
         <div className="flex items-center gap-2">
           <Link href="/" className="flex-shrink-0">
             <ARCStudioTitle />
           </Link>
+
           {!isCompact && (
             <nav className="flex gap-1 text-sm">
               {Object.entries(items.notCompact)
                 .filter(([, item]) => item.position === "left")
                 .map(([key, item]) => (
                   <div key={key} className="relative">
-                    <button
-                      ref={(el) => {
-                        buttonRefs.current[key] = el;
-                      }}
-                      onClick={() => item.children && toggleDropdown(key)}
-                      className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer"
-                    >
-                      {item.icon}
-                      <span>{item.label}</span>
-                      {item.children && (
+                    {item.children ? (
+                      <button
+                        ref={(el) => {
+                          buttonRefs.current[key] = el;
+                        }}
+                        onClick={() => toggleDropdown(key)}
+                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer"
+                      >
+                        {item.icon}
+                        <span>{item.label}</span>
                         <span
                           className={`ml-1 text-xs transition-transform duration-300 ${
                             showDropdowns[key] ? "rotate-180" : ""
                           }`}
                         >
-                          { item.label ? <IoIosArrowDown /> : ''}
+                          {item.label && <IoIosArrowDown />}
                         </span>
-                      )}
-                    </button>
+                      </button>
+                    ) : item.href ? (
+                      <Link
+                        href={item.href}
+                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer hover:bg-[#141e2e75] transition-colors"
+                      >
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </Link>
+                    ) : null}
+
                     {item.children && showDropdowns[key] && (
                       <div
                         ref={(el) => {
@@ -191,7 +192,6 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Lado direito */}
         <div className="flex items-center gap-2">
           {!isCompact && (
             <nav className="flex gap-1 text-sm">
@@ -199,25 +199,34 @@ export default function Navbar() {
                 .filter(([, item]) => item.position !== "left")
                 .map(([key, item]) => (
                   <div key={key} className="relative">
-                    <button
-                      ref={(el) => {
-                        buttonRefs.current[key] = el;
-                      }}
-                      onClick={() => item.children && toggleDropdown(key)}
-                      className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer"
-                    >
-                      {item.icon}
-                      {item.label && <span>{item.label}</span>}
-                      {item.children && (
+                    {item.children ? (
+                      <button
+                        ref={(el) => {
+                          buttonRefs.current[key] = el;
+                        }}
+                        onClick={() => toggleDropdown(key)}
+                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer"
+                      >
+                        {item.icon}
+                        <span>{item.label}</span>
                         <span
                           className={`ml-1 text-xs transition-transform duration-300 ${
                             showDropdowns[key] ? "rotate-180" : ""
                           }`}
                         >
-                          { item.label ? <IoIosArrowDown /> : ''}
+                          {item.label && <IoIosArrowDown />}
                         </span>
-                      )}
-                    </button>
+                      </button>
+                    ) : item.href ? (
+                      <Link
+                        href={item.href}
+                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer hover:bg-[#141e2e75] transition-colors"
+                      >
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </Link>
+                    ) : null}
+
                     {item.children && showDropdowns[key] && (
                       <div
                         ref={(el) => {
@@ -258,7 +267,6 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Menu flutuante compacto */}
       <div
         ref={menuRef}
         style={{
@@ -270,9 +278,7 @@ export default function Navbar() {
           transition: "opacity 0.3s ease, transform 0.3s ease",
           opacity: menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? "auto" : "none",
-          transform: menuOpen
-            ? "translateY(0) scale(1)"
-            : "translateY(-10px) scale(0.95)",
+          transform: menuOpen ? "translateY(0) scale(1)" : "translateY(-10px) scale(0.95)",
         }}
         className="select-none bg-[#0a121db5] rounded-lg shadow-lg border border-grid-line backdrop-blur-sm z-50"
       >
@@ -280,45 +286,57 @@ export default function Navbar() {
           {Object.entries(items.isCompact).map(([key, item]) =>
             item.label ? (
               <li key={key}>
-                <button
-                  onClick={() => (item.children ? toggleDropdown(key) : setMenuOpen(false))}
-                  className="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#141e2e75] transition-colors"
-                >
-                  <div className="flex items-center gap-2">
+                {item.children ? (
+                  <>
+                    <button
+                      onClick={() => toggleDropdown(key)}
+                      className="flex items-center justify-between w-full px-3 py-2 rounded hover:bg-[#141e2e75] transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </div>
+                      <span
+                        className={`text-xs transition-transform duration-300 ${
+                          showDropdowns[key] ? "rotate-180" : ""
+                        }`}
+                      >
+                        <IoIosArrowDown />
+                      </span>
+                    </button>
+
+                    {showDropdowns[key] && (
+                      <div className="flex mt-2">
+                        <div className="flex flex-col justify-start">
+                          <div className="h-full w-[2px] bg-grid-line ml-[18px] rounded"></div>
+                        </div>
+                        <ul className="ml-3 flex flex-col gap-1">
+                          {Object.entries(item.children).map(([subKey, subItem]) => (
+                            <li key={subKey}>
+                              <Link
+                                href={subItem.href || "#"}
+                                className="flex items-center gap-2 px-3 py-2 rounded hover:bg-[#141e2e75] transition-colors"
+                                onClick={() => setMenuOpen(false)}
+                              >
+                                {subItem.icon}
+                                <span>{subItem.label}</span>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </>
+                ) : item.href ? (
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-2 px-3 py-2 rounded hover:bg-[#141e2e75] transition-colors"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     {item.icon}
                     <span>{item.label}</span>
-                  </div>
-                  {item.children && (
-                    <span
-                      className={`text-xs transition-transform duration-300 ${
-                        showDropdowns[key] ? "rotate-180" : ""
-                      }`}
-                    >
-                      <IoIosArrowDown />
-                    </span>
-                  )}
-                </button>
-                {item.children && showDropdowns[key] && (
-                  <div className="flex mt-2">
-                    <div className="flex flex-col justify-start">
-                      <div className="h-full w-[2px] bg-grid-line ml-[18px] rounded"></div>
-                    </div>
-                    <ul className="ml-3 flex flex-col gap-1">
-                      {Object.entries(item.children).map(([subKey, subItem]) => (
-                        <li key={subKey}>
-                          <Link
-                            href={subItem.href || "#"}
-                            className="flex items-center gap-2 px-3 py-2 rounded hover:bg-[#141e2e75] transition-colors"
-                            onClick={() => setMenuOpen(false)}
-                          >
-                            {subItem.icon}
-                            <span>{subItem.label}</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                  </Link>
+                ) : null}
               </li>
             ) : null
           )}
