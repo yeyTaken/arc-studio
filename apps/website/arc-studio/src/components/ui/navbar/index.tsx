@@ -142,7 +142,7 @@ export default function Navbar() {
                           buttonRefs.current[key] = el;
                         }}
                         onClick={() => toggleDropdown(key)}
-                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer"
+                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer hover:text-[#5b9eff] transition-colors"
                       >
                         {item.icon}
                         <span>{item.label}</span>
@@ -157,7 +157,7 @@ export default function Navbar() {
                     ) : item.href ? (
                       <Link
                         href={item.href}
-                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer hover:bg-[#141e2e75] transition-colors"
+                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer hover:text-[#5b9eff] transition-colors"
                       >
                         {item.icon}
                         <span>{item.label}</span>
@@ -205,7 +205,7 @@ export default function Navbar() {
                           buttonRefs.current[key] = el;
                         }}
                         onClick={() => toggleDropdown(key)}
-                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer"
+                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer hover:text-[#5b9eff] transition-colors"
                       >
                         {item.icon}
                         <span>{item.label}</span>
@@ -220,7 +220,7 @@ export default function Navbar() {
                     ) : item.href ? (
                       <Link
                         href={item.href}
-                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer hover:bg-[#141e2e75] transition-colors"
+                        className="flex items-center gap-[2px] px-2 py-0.5 rounded cursor-pointer hover:text-[#5b9eff] transition-colors"
                       >
                         {item.icon}
                         <span>{item.label}</span>
