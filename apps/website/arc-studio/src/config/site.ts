@@ -2,7 +2,7 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: "ARC Studio",
-  description: "Make beautiful websites regardless of your design experience.",
+  description: "Seu projeto merece o melhor — vamos torná-lo realidade com inovação e dedicação.",
 
   links: {
     github: "https://github.com/yeyTaken/arc-studio",
