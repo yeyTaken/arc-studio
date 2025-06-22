@@ -1,11 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { FaGithub, FaDiscord } from "react-icons/fa";
+// import { useSession } from "next-auth/react";
 
 import ARCStudioTitle from "../title";
 import { siteConfig } from "@/config/site";
 import { FaHeart, FaInstagram } from "react-icons/fa6";
 
 export default function Footer() {
+  // const { data: session } = useSession();
+
   return (
     <footer className="select-none w-full py-14 bg-[#0a121d6b] border-t border-grid-line backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -14,8 +19,21 @@ export default function Footer() {
             <ARCStudioTitle />
           </Link>
 
-          <div className="mt-10 mb-10 border-b border-grid-line">
-          </div>
+          {/* {!session ? (
+            <div className="flex justify-center mt-4">
+              <a
+                href="/auth/login"
+                className="inline-flex items-center gap-2 px-6 py-2 rounded-md bg-[#5865F2]/20 hover:bg-[#5865F2]/40 text-white transition text-sm font-medium"
+              >
+                <FaDiscord size={18} />
+                Entrar com Discord
+              </a>
+            </div>
+          ) : (
+            ""
+          )} */}
+
+          <div className="mt-10 mb-10 border-b border-grid-line"></div>
 
           <div className="flex space-x-10 justify-center items-center mb-14">
             <a
@@ -34,7 +52,7 @@ export default function Footer() {
               <FaDiscord className="w-[1.688rem] h-[1.688rem]" />
             </a>
 
-           <a
+            <a
               href={siteConfig.links.instagram}
               className="block transition-all duration-500 hover:text-blue-800"
               aria-label="Instagram"
@@ -49,7 +67,6 @@ export default function Footer() {
             >
               <FaHeart className="w-[1.688rem] h-[1.688rem]" />
             </a>
-
           </div>
 
           <span className="text-lg text-gray-500 text-center block">

@@ -4,9 +4,10 @@ import type { Metadata } from "next";
 
 import Navbar from "@/components/ui/navbar";
 import Background from "@/components/ui/style/background";
+import Footer from "@/components/ui/footer";
 import { siteConfig } from "@/config/site";
 import { fontMono, fontSans } from "@/config/fonts";
-import Footer from "@/components/ui/footer";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: {
@@ -56,14 +57,16 @@ export default function RootLayout({
       <body
         className={`${fontSans.variable} ${fontMono.variable} text-foreground antialiased`}
       >
-        <Background />
-        <Navbar />
+        <Providers>
+          <Background />
+          <Navbar />
 
-        <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-          {children}
-        </main>
+          <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+            {children}
+          </main>
 
-        <Footer />
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

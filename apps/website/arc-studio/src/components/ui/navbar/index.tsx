@@ -4,16 +4,23 @@ import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import { FaBars } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
+import { signIn, useSession } from "next-auth/react";
 
 import ARCStudioTitle from "../title";
 import { items } from "@/config";
+import { FaDiscord } from "react-icons/fa6";
+import Image from "next/image";
 
 export default function Navbar() {
+  const { data: session } = useSession();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
-  const [showDropdowns, setShowDropdowns] = useState<Record<string, boolean>>({});
+  const [showDropdowns, setShowDropdowns] = useState<Record<string, boolean>>(
+    {}
+  );
 
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -172,17 +179,19 @@ export default function Navbar() {
                         className="absolute left-0 top-full mt-4 bg-[#0a121db5] rounded shadow-lg border border-grid-line backdrop-blur-sm z-50 flex"
                       >
                         <ul className="p-2 text-sm">
-                          {Object.entries(item.children).map(([subKey, subItem]) => (
-                            <li key={subKey}>
-                              <Link
-                                href={subItem.href || "#"}
-                                className="flex items-center gap-2 px-3 py-2 hover:bg-[#141e2e75] rounded transition-colors"
-                              >
-                                {subItem.icon}
-                                <span>{subItem.label}</span>
-                              </Link>
-                            </li>
-                          ))}
+                          {Object.entries(item.children).map(
+                            ([subKey, subItem]) => (
+                              <li key={subKey}>
+                                <Link
+                                  href={subItem.href || "#"}
+                                  className="flex items-center gap-2 px-3 py-2 hover:bg-[#141e2e75] rounded transition-colors"
+                                >
+                                  {subItem.icon}
+                                  <span>{subItem.label}</span>
+                                </Link>
+                              </li>
+                            )
+                          )}
                         </ul>
                       </div>
                     )}
@@ -235,17 +244,19 @@ export default function Navbar() {
                         className="absolute left-0 top-full mt-4 bg-[#0a121db5] rounded shadow-lg border border-grid-line backdrop-blur-sm z-50 flex"
                       >
                         <ul className="p-2 text-sm">
-                          {Object.entries(item.children).map(([subKey, subItem]) => (
-                            <li key={subKey}>
-                              <Link
-                                href={subItem.href || "#"}
-                                className="flex items-center gap-2 px-3 py-2 hover:bg-[#141e2e75] rounded transition-colors"
-                              >
-                                {subItem.icon}
-                                <span>{subItem.label}</span>
-                              </Link>
-                            </li>
-                          ))}
+                          {Object.entries(item.children).map(
+                            ([subKey, subItem]) => (
+                              <li key={subKey}>
+                                <Link
+                                  href={subItem.href || "#"}
+                                  className="flex items-center gap-2 px-3 py-2 hover:bg-[#141e2e75] rounded transition-colors"
+                                >
+                                  {subItem.icon}
+                                  <span>{subItem.label}</span>
+                                </Link>
+                              </li>
+                            )
+                          )}
                         </ul>
                       </div>
                     )}
@@ -253,6 +264,29 @@ export default function Navbar() {
                 ))}
             </nav>
           )}
+
+          <div className="flex items-center gap-2">
+            {/* Botão de login com Discord */}
+            {!session ? (
+              <button
+                onClick={() => signIn("discord", { callbackUrl: "/profile" })}
+                className="cursor-pointer flex items-center gap-2 px-3 py-1.5 text-sm rounded bg-[#7289da]/10 hover:bg-[#7289da]/20 transition text-[#7289da]"
+              >
+                <FaDiscord size={16} />
+                <span className="font-bold">Login</span>
+              </button>
+            ) : (
+              <Link href="/profile">
+                <Image
+                  src={session.user.image!}
+                  alt={session.user.name!}
+                  width={28}
+                  height={28}
+                  className="rounded-full border mx-auto"
+                />
+              </Link>
+            )}
+          </div>
 
           {isCompact && (
             <button
@@ -278,7 +312,9 @@ export default function Navbar() {
           transition: "opacity 0.3s ease, transform 0.3s ease",
           opacity: menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? "auto" : "none",
-          transform: menuOpen ? "translateY(0) scale(1)" : "translateY(-10px) scale(0.95)",
+          transform: menuOpen
+            ? "translateY(0) scale(1)"
+            : "translateY(-10px) scale(0.95)",
         }}
         className="select-none bg-[#0a121db5] rounded-lg shadow-lg border border-grid-line backdrop-blur-sm z-50"
       >
@@ -311,18 +347,20 @@ export default function Navbar() {
                           <div className="h-full w-[2px] bg-grid-line ml-[18px] rounded"></div>
                         </div>
                         <ul className="ml-3 flex flex-col gap-1">
-                          {Object.entries(item.children).map(([subKey, subItem]) => (
-                            <li key={subKey}>
-                              <Link
-                                href={subItem.href || "#"}
-                                className="flex items-center gap-2 px-3 py-2 rounded hover:bg-[#141e2e75] transition-colors"
-                                onClick={() => setMenuOpen(false)}
-                              >
-                                {subItem.icon}
-                                <span>{subItem.label}</span>
-                              </Link>
-                            </li>
-                          ))}
+                          {Object.entries(item.children).map(
+                            ([subKey, subItem]) => (
+                              <li key={subKey}>
+                                <Link
+                                  href={subItem.href || "#"}
+                                  className="flex items-center gap-2 px-3 py-2 rounded hover:bg-[#141e2e75] transition-colors"
+                                  onClick={() => setMenuOpen(false)}
+                                >
+                                  {subItem.icon}
+                                  <span>{subItem.label}</span>
+                                </Link>
+                              </li>
+                            )
+                          )}
                         </ul>
                       </div>
                     )}
