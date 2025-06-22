@@ -14,8 +14,35 @@ export const metadata: Metadata = {
     template: `${siteConfig.name} | %s`,
   },
   description: siteConfig.description,
+  metadataBase: new URL(siteConfig.links.site),
   icons: {
     icon: "./favicon.ico",
+  },
+  openGraph: {
+    title: {
+      default: siteConfig.name,
+      template: `${siteConfig.name} | %s`,
+    },
+    description: siteConfig.description,
+    url: siteConfig.links.site,
+    siteName: "ARC Studio",
+    type: "website",
+    images: [
+      {
+        url: siteConfig.links.site + "opengraph-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: {
+      default: siteConfig.name,
+      template: `${siteConfig.name} | %s`,
+    },
+    description: siteConfig.description,
+    images: [siteConfig.links.site + "opengraph-image.png"],
   },
 };
 
@@ -31,7 +58,7 @@ export default function RootLayout({
       >
         <Background />
         <Navbar />
-        
+
         <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
           {children}
         </main>
