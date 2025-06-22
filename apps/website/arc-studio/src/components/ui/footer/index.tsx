@@ -3,7 +3,7 @@ import { FaGithub, FaDiscord } from "react-icons/fa";
 
 import ARCStudioTitle from "../title";
 import { siteConfig } from "@/config/site";
-import { FaHeart } from "react-icons/fa6";
+import { FaHeart, FaInstagram } from "react-icons/fa6";
 
 export default function Footer() {
   return (
@@ -34,6 +34,14 @@ export default function Footer() {
               <FaDiscord className="w-[1.688rem] h-[1.688rem]" />
             </a>
 
+           <a
+              href={siteConfig.links.instagram}
+              className="block transition-all duration-500 hover:text-blue-800"
+              aria-label="Instagram"
+            >
+              <FaInstagram className="w-[1.688rem] h-[1.688rem]" />
+            </a>
+
             <a
               href={siteConfig.links.sponsor}
               className="block transition-all duration-500 hover:text-red-800"
@@ -47,7 +55,7 @@ export default function Footer() {
           <span className="text-lg text-gray-500 text-center block">
             ©{" "}
             <Link href="/">
-              <ARCStudioTitle />
+              <ARCStudioTitle />, Inc.
             </Link>{" "}
             2025, Todos os direitos reservados.
           </span>

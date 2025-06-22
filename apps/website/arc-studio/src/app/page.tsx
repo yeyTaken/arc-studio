@@ -19,7 +19,7 @@ export default function HomePage() {
             alt="Ícone do site"
             width={360}
             height={360}
-            className="w-[300px] h-[300px] md:w-[360px] md:h-[360px] object-contain"
+            className="select-none w-[300px] h-[300px] md:w-[360px] md:h-[360px] object-contain"
             priority
           />
         </div>
@@ -36,13 +36,13 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <Link
               href="/projects"
-              className="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 transition cursor-pointer text-center"
+              className="select-none px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 transition cursor-pointer text-center"
             >
               Saiba mais
             </Link>
             <Link
               href="/contact"
-              className="px-6 py-2 rounded-xl border border-blue-600 text-blue-600 hover:bg-grid-line transition cursor-pointer inline-flex items-center gap-2 justify-center"
+              className="select-none px-6 py-2 rounded-xl border border-blue-600 text-blue-600 hover:bg-grid-line transition cursor-pointer inline-flex items-center gap-2 justify-center"
             >
               Contato <TfiNewWindow />
             </Link>
