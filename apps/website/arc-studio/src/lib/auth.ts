@@ -1,4 +1,3 @@
-// src/lib/auth.ts
 import DiscordProvider from "next-auth/providers/discord";
 import type { NextAuthOptions } from "next-auth";
 

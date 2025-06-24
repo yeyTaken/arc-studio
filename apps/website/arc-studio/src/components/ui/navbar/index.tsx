@@ -2,17 +2,48 @@
 
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaRegUserCircle } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 import ARCStudioTitle from "../title";
 import { items } from "@/config";
 import { FaDiscord } from "react-icons/fa6";
 import Image from "next/image";
+import { FiCheckCircle, FiCopy, FiLogOut } from "react-icons/fi";
 
 export default function Navbar() {
   const { data: session } = useSession();
+
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyId = async () => {
+    if (!session?.user?.id) return;
+    await navigator.clipboard.writeText(session.user.id);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+  const userButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Fecha o menu do usuário se clicar fora
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        userMenuOpen &&
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node) &&
+        userButtonRef.current &&
+        !userButtonRef.current.contains(event.target as Node)
+      ) {
+        setUserMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [userMenuOpen]);
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -265,29 +296,7 @@ export default function Navbar() {
             </nav>
           )}
 
-          <div className="flex items-center gap-2">
-            {/* Botão de login com Discord */}
-            {!session ? (
-              <button
-                onClick={() => signIn("discord", { callbackUrl: "/profile" })}
-                className="cursor-pointer flex items-center gap-2 px-3 py-1.5 text-sm rounded bg-[#7289da]/10 hover:bg-[#7289da]/20 transition text-[#7289da]"
-              >
-                <FaDiscord size={16} />
-                <span className="font-bold">Login</span>
-              </button>
-            ) : (
-              <Link href="/profile">
-                <Image
-                  src={session.user.image!}
-                  alt={session.user.name!}
-                  width={28}
-                  height={28}
-                  className="rounded-full border mx-auto"
-                />
-              </Link>
-            )}
-          </div>
-
+          {/* Ícone menu hamburguer */}
           {isCompact && (
             <button
               ref={buttonRef}
@@ -298,8 +307,138 @@ export default function Navbar() {
               <FaBars size={20} />
             </button>
           )}
+
+          {/* Ícone usuário */}
+          <div className="flex items-center gap-2">
+            {!session ? (
+              <button
+                ref={userButtonRef}
+                onClick={() => setUserMenuOpen((prev) => !prev)}
+                className="cursor-pointer"
+                aria-label="Toggle user menu"
+              >
+                <FaRegUserCircle size={28} />
+              </button>
+            ) : (
+              <button
+                ref={userButtonRef}
+                onClick={() => setUserMenuOpen((prev) => !prev)}
+                className="cursor-pointer"
+                aria-label="Toggle user menu"
+              >
+                <Image
+                  src={session.user.image!}
+                  alt={session.user.name!}
+                  width={28}
+                  height={28}
+                  className="rounded-full border-2 mx-auto border-grid-line"
+                />
+              </button>
+            )}
+          </div>
         </div>
       </header>
+
+      <>
+        {/* Overlay de fundo com blur médio */}
+        <div
+          className={`fixed inset-0 bg-[#0a121daa] backdrop-blur-md z-40 transition-opacity duration-300 ease-in-out ${
+            userMenuOpen
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }`}
+          onClick={() => setUserMenuOpen(false)}
+        />
+
+        {/* Card central de login */}
+        <div
+          ref={userMenuRef}
+          className={`fixed top-[15vh] left-1/2 z-50 
+      w-[90vw] max-w-[400px] min-w-[280px]
+      h-[65vh] max-h-[500px] min-h-[360px]
+      bg-[#0a121d] rounded-xl shadow-xl border border-[#2c3e50]
+      px-6 py-5 flex flex-col justify-between
+      transition-opacity duration-300 ease-in-out
+      ${
+        userMenuOpen
+          ? "opacity-100 translate-x-[-50%] translate-y-0 scale-100"
+          : "opacity-0 translate-x-[-50%] translate-y-[-10px] scale-95"
+      }`}
+          style={{ transformOrigin: "top center" }}
+        >
+          {!session ? (
+            <>
+              {/* Título */}
+              <h2 className="text-xl font-bold mb-3 text-center">
+                Entrar com Discord
+              </h2>
+
+              {/* Conteúdo */}
+              <div className="flex-grow overflow-y-auto text-center px-1 text-sm text-neutral-300">
+                <p>
+                  Faça login para aproveitar todos os recursos da plataforma.
+                </p>
+              </div>
+
+              {/* Botão de login */}
+              <button
+                onClick={() => signIn("discord", { callbackUrl: "/" })}
+                className="cursor-pointer mt-5 flex items-center justify-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] font-semibold text-sm px-4 py-2 rounded transition-colors"
+                style={{ fontFamily: "'Poppins', sans-serif" }}
+              >
+                <FaDiscord size={20} />
+                Entrar com Discord
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="select-none flex flex-col gap-4">
+                <div className="flex items-start gap-4">
+                  {/* Avatar */}
+                  <Image
+                    src={session.user.image!}
+                    alt={session.user.name!}
+                    width={64}
+                    height={64}
+                    className="rounded-full border-2 border-grid-line"
+                  />
+
+                  {/* Nome e ID */}
+                  <div className="flex flex-col">
+                    <h1 className="text-lg font-semibold mt-1">
+                      {session.user.name}
+                    </h1>
+
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                      <span>ID: {session.user.id}</span>
+
+                      <button
+                        onClick={handleCopyId}
+                        className="cursor-pointer p-1 rounded hover:bg-white/10 transition"
+                        title={copied ? "Copiado" : "Copiar ID"}
+                      >
+                        {copied ? (
+                          <FiCheckCircle size={16} className="text-green-400" />
+                        ) : (
+                          <FiCopy size={16} />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => signOut()}
+                  className="cursor-pointer fixed bottom-4 right-4 z-50 p-2 rounded-md bg-red-500/10 hover:bg-red-500/20 transition text-red-300"
+                  title="Sair"
+                  aria-label="Logout"
+                >
+                  <FiLogOut size={20} />
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </>
 
       <div
         ref={menuRef}
