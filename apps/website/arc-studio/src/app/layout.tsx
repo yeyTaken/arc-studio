@@ -26,13 +26,13 @@ export const metadata: Metadata = {
     },
     description: siteConfig.description,
     url: siteConfig.links.site,
-    siteName: "ARC Studio",
+    siteName: "Advanced Resource Center Studio (ARC Studio)",
     type: "website",
     images: [
       {
         url: siteConfig.links.site + "opengraph-image.png",
-        width: 1200,
-        height: 630,
+        width: 3780,
+        height: 1890,
       },
     ],
   },
@@ -55,7 +55,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        className={`${fontSans.variable} ${fontMono.variable} text-foreground antialiased`}
+        className={`${
+          fontSans.variable
+        } ${fontMono.variable} antialiased`}
       >
         <Providers>
           <Background />

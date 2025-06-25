@@ -15,6 +15,9 @@ import { FiCheckCircle, FiCopy, FiLogOut } from "react-icons/fi";
 export default function Navbar() {
   const { data: session } = useSession();
 
+    const [showWumpus, setShowWumpus] = useState(false);
+
+
   const [copied, setCopied] = useState(false);
 
   const handleCopyId = async () => {
@@ -367,74 +370,117 @@ export default function Navbar() {
           style={{ transformOrigin: "top center" }}
         >
           {!session ? (
-            <>
-              {/* Título */}
-              <h2 className="text-xl font-bold mb-3 text-center">
-                Entrar com Discord
-              </h2>
+    <>
+      {/* Título */}
+      <h2 className="text-xl font-bold mb-3 text-center">
+        Entrar com Discord
+      </h2>
 
-              {/* Conteúdo */}
-              <div className="flex-grow overflow-y-auto text-center px-1 text-sm text-neutral-300">
-                <p>
-                  Faça login para aproveitar todos os recursos da plataforma.
-                </p>
-              </div>
+      {/* Conteúdo */}
+      <div className="flex-grow overflow-y-auto text-center px-1 text-sm text-neutral-300">
+        <p>Faça login para aproveitar todos os recursos da plataforma.</p>
+      </div>
 
-              {/* Botão de login */}
-              <button
-                onClick={() => signIn("discord", { callbackUrl: "/" })}
-                className="cursor-pointer mt-5 flex items-center justify-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] font-semibold text-sm px-4 py-2 rounded transition-colors"
-                style={{ fontFamily: "'Poppins', sans-serif" }}
-              >
-                <FaDiscord size={20} />
-                Entrar com Discord
-              </button>
-            </>
+      {/* Área do botão */}
+      <div
+        className="relative mt-5 flex flex-col items-center"
+        onMouseEnter={() => setShowWumpus(true)}
+        onMouseLeave={() => setShowWumpus(false)}
+      >
+        {/* Wumpus no topo direito do botão */}
+        {showWumpus && (
+          <div className="absolute -top-17 right-10 transition-opacity duration-300">
+            <Image
+              src="/gif/wumpus_happy.gif"
+              alt="Discord Login"
+              width={70}
+              height={70}
+            />
+          </div>
+        )}
+
+        {/* Botão de login aumentado */}
+        <button
+          onClick={() => signIn("discord", { callbackUrl: "/" })}
+          className="w-64 cursor-pointer flex items-center justify-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] font-extrabold text-sm px-6 py-2 rounded transition-colors"
+          style={{ fontFamily: "'Poppins', sans-serif" }}
+        >
+          <FaDiscord size={20} />
+          Discord
+        </button>
+      </div>
+    </>
+
           ) : (
             <>
-              <div className="select-none flex flex-col gap-4">
-                <div className="flex items-start gap-4">
-                  {/* Avatar */}
-                  <Image
-                    src={session.user.image!}
-                    alt={session.user.name!}
-                    width={64}
-                    height={64}
-                    className="rounded-full border-2 border-grid-line"
-                  />
+              {/* Conteúdo fixo no topo (sem borda) */}
+              <div className="select-none fixed top-4 left-4 right-4 bg-background px-6 py-4 flex items-center gap-4 border-b border-grid-line z-50">
+                {/* Avatar */}
+                <Image
+                  src={session.user.image!}
+                  alt={session.user.name!}
+                  width={64}
+                  height={64}
+                  className="rounded-full border-2 border-grid-line"
+                />
 
-                  {/* Nome e ID */}
-                  <div className="flex flex-col">
-                    <h1 className="text-lg font-semibold mt-1">
-                      {session.user.name}
-                    </h1>
+                {/* Nome e ID */}
+                <div className="flex flex-col">
+                  <h1 className="text-lg font-semibold mt-1">
+                    {session.user.name}
+                  </h1>
 
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <span>ID: {session.user.id}</span>
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <span>ID: {session.user.id}</span>
 
-                      <button
-                        onClick={handleCopyId}
-                        className="cursor-pointer p-1 rounded hover:bg-white/10 transition"
-                        title={copied ? "Copiado" : "Copiar ID"}
-                      >
-                        {copied ? (
-                          <FiCheckCircle size={16} className="text-green-400" />
-                        ) : (
-                          <FiCopy size={16} />
-                        )}
-                      </button>
-                    </div>
+                    <button
+                      onClick={handleCopyId}
+                      className="cursor-pointer p-1 rounded hover:bg-white/10 transition"
+                      title={copied ? "Copiado" : "Copiar ID"}
+                    >
+                      {copied ? (
+                        <FiCheckCircle size={16} className="text-green-400" />
+                      ) : (
+                        <FiCopy size={16} />
+                      )}
+                    </button>
                   </div>
                 </div>
+              </div>
+
+              {/* Área principal com scroll (sem borda) */}
+              <main className="absolute top-[88px] bottom-[72px] left-4 right-4 overflow-y-auto bg-background rounded-xl p-6 mt-5">
+                <h1 className="font-semibold">Espaço do Usuário</h1>
+                <p className="text-sm text-gray-400">
+                  Aqui você pode ver suas informaçoes.
+                </p>
+                <p className="text-sm text-gray-400 mt-2">
+                  Esta área é reservada para futuras funcionalidades, como
+                  gerenciamento de conta, configurações e muito mais.
+                </p>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <p className="text-sm text-gray-400">
+                  Fique atento às atualizações!
+                </p>
+              </main>
+
+              {/* Footer fixo com borda */}
+              <footer className="fixed bottom-4 left-4 right-4 backdrop-blur-sm border border-[#2c3e50] rounded-xl px-6 py-2 flex items-center justify-end shadow-xl z-50">
                 <button
                   onClick={() => signOut()}
-                  className="cursor-pointer fixed bottom-4 right-4 z-50 p-2 rounded-md bg-red-500/10 hover:bg-red-500/20 transition text-red-300"
+                  className="cursor-pointer p-2 rounded-md bg-red-500/10 hover:bg-red-500/20 transition text-red-300"
                   title="Sair"
                   aria-label="Logout"
                 >
                   <FiLogOut size={20} />
                 </button>
-              </div>
+              </footer>
             </>
           )}
         </div>

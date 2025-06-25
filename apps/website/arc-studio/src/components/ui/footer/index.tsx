@@ -6,7 +6,7 @@ import { FaGithub, FaDiscord } from "react-icons/fa";
 
 import ARCStudioTitle from "../title";
 import { siteConfig } from "@/config/site";
-import { FaHeart, FaInstagram } from "react-icons/fa6";
+import { FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
   // const { data: session } = useSession();
@@ -61,11 +61,11 @@ export default function Footer() {
             </a>
 
             <a
-              href={siteConfig.links.sponsor}
-              className="block transition-all duration-500 hover:text-red-800"
-              aria-label="Donate"
+              href={siteConfig.links.twitter}
+              className="block transition-all duration-500 hover:text-blue-800"
+              aria-label="Twitter (X)"
             >
-              <FaHeart className="w-[1.688rem] h-[1.688rem]" />
+              <FaXTwitter  className="w-[1.688rem] h-[1.688rem]" />
             </a>
           </div>
 

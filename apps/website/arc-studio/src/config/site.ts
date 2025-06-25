@@ -8,7 +8,7 @@ export const siteConfig = {
     github: "https://github.com/yeyTaken/arc-studio",
     site: "https://arcstudio.online/",
     discord: "/discord",
-    instagram: "https://www.instagram.com/arcstudio.oficial/",
-    sponsor: "https://patreon.com/yeyTaken",
+    instagram: "/instagram",
+    twitter: "/twitter",
   },
 };
