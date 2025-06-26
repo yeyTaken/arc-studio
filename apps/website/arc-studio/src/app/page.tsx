@@ -5,12 +5,13 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "ARC Studio | Início",
-  description: "Seu projeto merece o melhor — vamos torná-lo realidade com inovação e dedicação.",
+  description:
+    "Seu projeto merece o melhor — vamos torná-lo realidade com inovação e dedicação.",
 };
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-6">
+    <div className="flex min-h-screen items-start justify-center px-6 pt-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl w-full">
         {/* Ícone: primeiro no mobile, depois no desktop */}
         <div className="flex items-center justify-center order-1 md:order-2">
@@ -26,12 +27,19 @@ export default function HomePage() {
 
         {/* Texto */}
         <div className="flex flex-col justify-center text-center md:text-left order-2 md:order-1">
-          <h1 className="text-4xl font-bold mb-4">Quer tirar sua ideia do papel?</h1>
+          <h1 className="text-4xl font-bold mb-4">
+            Quer tirar sua ideia do papel?
+          </h1>
           <p className="text-lg text-gray-500 mb-3">
-            Seu projeto merece o melhor — vamos torná-lo realidade com inovação e dedicação.
+            Seu projeto merece o melhor — vamos torná-lo realidade com inovação
+            e dedicação.
           </p>
           <p className="text-lg text-gray-500 mb-6">
-            Conheça nossa <Link href="/team" className="text-blue-600 underline">Equipe</Link>!
+            Conheça nossa{" "}
+            <Link href="/team" className="text-blue-600 underline">
+              Equipe
+            </Link>
+            !
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <Link
