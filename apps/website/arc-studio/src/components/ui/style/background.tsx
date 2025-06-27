@@ -66,8 +66,8 @@ export default function Background() {
 
   return (
     <>
-      <div className="particles" ref={particlesRef} />
-      <div className="grid-overlay" />
+      <div ref={particlesRef} />
+      {/* <div className="grid-overlay" /> */}
     </>
   );
 }

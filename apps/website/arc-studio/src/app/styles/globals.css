@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
-
+@config "../../../tailwind.config.js";
 
 @import "tailwindcss";
 
 @import "./not-found.css";
 
 @import "./config/theme.css";
-@import "./config/background.css";
+/* @import "./config/background.css"; */
 @import "./config/scrollbar.css";
 
 /* @source "../node_modules/@heroui/theme/dist*.{js,ts,jsx,tsx}"; */
