@@ -55,7 +55,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        className={`${fontSans.variable} ${fontMono.variable} antialiased`}
+        className={`${
+          fontSans.variable
+        } ${fontMono.variable} antialiased`}
       >
         <Providers>
           <Background />

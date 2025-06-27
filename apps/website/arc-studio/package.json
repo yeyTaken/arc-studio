@@ -1,6 +1,6 @@
 {
   "name": "arc-studio",
-  "version": "1.8.0",
+  "version": "1.7.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -9,10 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroui/react": "2.7.11",
-    "atosjs": "^3.0.10",
+    "@heroui/react": "^2.7.11",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.19.1",
     "next": "15.3.3",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
@@ -27,7 +25,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
-    "tailwindcss": "^4.1.11",
+    "tailwindcss": "^4",
     "typescript": "^5"
   }
 }
