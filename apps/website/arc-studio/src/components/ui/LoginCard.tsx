@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { FaDiscord } from "react-icons/fa6";
 import Image from "next/image";
@@ -21,7 +21,6 @@ export default function LoginCard({
   const { data: session } = useSession();
   const [showWumpus, setShowWumpus] = useState(false);
   const [copied, setCopied] = useState(false);
-  // const userMenuRef = useRef<HTMLDivElement>(null);
 
   // Copy ID to clipboard
   const handleCopyId = async () => {
@@ -46,7 +45,7 @@ export default function LoginCard({
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [userMenuOpen, setUserMenuOpen, userButtonRef]);
+  }, [userMenuOpen, setUserMenuOpen, userButtonRef, userMenuRef]);
 
   return (
     <>
@@ -77,42 +76,43 @@ export default function LoginCard({
         style={{ transformOrigin: "top center" }}
       >
         {!session ? (
-<div className="select-none flex flex-col h-full">
-  <div>
-    <h2 className="text-xl font-bold mb-3 text-center">
-      Entrar com Discord
-    </h2>
-    <div className="text-center px-1 text-sm text-neutral-300">
-      <p>Faça login para aproveitar todos os recursos da plataforma.</p>
-    </div>
-  </div>
+          <div className="select-none flex flex-col h-full">
+            <div>
+              <h2 className="text-xl font-bold mb-3 text-center">
+                Entrar com Discord
+              </h2>
+              <div className="text-center px-1 text-sm text-neutral-300">
+                <p>
+                  Faça login para aproveitar todos os recursos da plataforma.
+                </p>
+              </div>
+            </div>
 
-  <div
-    className="relative flex flex-col items-center mt-auto"
-    onMouseEnter={() => setShowWumpus(true)}
-    onMouseLeave={() => setShowWumpus(false)}
-  >
-    {showWumpus && (
-      <div className="absolute -top-17 right-10 transition-opacity duration-300">
-        <Image
-          src="/gif/wumpus_happy.gif"
-          alt="Discord Login"
-          width={70}
-          height={70}
-        />
-      </div>
-    )}
-    <button
-      onClick={() => signIn("discord")}
-      className="w-64 cursor-pointer flex items-center justify-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] font-extrabold text-sm px-6 py-2 rounded transition-colors"
-      style={{ fontFamily: "'Poppins', sans-serif" }}
-    >
-      <FaDiscord size={20} />
-      Discord
-    </button>
-  </div>
-</div>
-
+            <div
+              className="relative flex flex-col items-center mt-auto"
+              onMouseEnter={() => setShowWumpus(true)}
+              onMouseLeave={() => setShowWumpus(false)}
+            >
+              {showWumpus && (
+                <div className="absolute -top-17 right-10 transition-opacity duration-300">
+                  <Image
+                    src="/gif/wumpus_happy.gif"
+                    alt="Discord Login"
+                    width={70}
+                    height={70}
+                  />
+                </div>
+              )}
+              <button
+                onClick={() => signIn("discord")}
+                className="w-64 cursor-pointer flex items-center justify-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] font-extrabold text-sm px-6 py-2 rounded transition-colors"
+                style={{ fontFamily: "'Poppins', sans-serif" }}
+              >
+                <FaDiscord size={20} />
+                Discord
+              </button>
+            </div>
+          </div>
         ) : (
           <>
             <div className="select-none fixed top-4 left-4 right-4 bg-background px-6 py-4 flex items-center gap-4 border-b border-grid-line z-50">
@@ -154,6 +154,9 @@ export default function LoginCard({
               </p>
             </main>
             <footer className="select-none fixed bottom-4 left-4 right-4 backdrop-blur-sm border border-[#2c3e50] rounded-xl px-6 py-2 flex items-center justify-between shadow-xl z-50">
+              <span className="flex items-center gap-1">
+                <Kbd keys={["ctrl"]}>P</Kbd>
+              </span>
               <button
                 onClick={() => signOut()}
                 className="cursor-pointer p-2 rounded-md bg-red-500/10 hover:bg-red-500/20 transition text-red-300"

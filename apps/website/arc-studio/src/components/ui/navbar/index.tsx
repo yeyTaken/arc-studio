@@ -21,8 +21,8 @@ export default function Navbar() {
   const [showDropdowns, setShowDropdowns] = useState<Record<string, boolean>>(
     {}
   );
-  const userButtonRef = useRef<HTMLButtonElement>(null);
-  const userMenuRef = useRef<HTMLDivElement>(null);
+  const userButtonRef = useRef<HTMLButtonElement>(null!);
+  const userMenuRef = useRef<HTMLDivElement>(null!);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -140,7 +140,9 @@ export default function Navbar() {
           {item.children ? (
             <>
               <button
-                ref={(el) => (buttonRefs.current[key] = el)}
+                ref={(el) => {
+                  buttonRefs.current[key] = el;
+                }}
                 onClick={() => toggleDropdown(key)}
                 className="cursor-pointer relative flex items-center gap-1 px-2 py-0.5 rounded hover:text-[#5b9eff] transition"
               >
@@ -154,7 +156,9 @@ export default function Navbar() {
 
               {showDropdowns[key] && (
                 <div
-                  ref={(el) => (dropdownRefs.current[key] = el)}
+                  ref={(el) => {
+                    dropdownRefs.current[key] = el;
+                  }}
                   className="text-foreground/70 absolute left-0 top-[calc(100%+24px)] 
              bg-[rgba(10,18,29,0.6)] backdrop-blur-md 
              rounded-lg shadow-lg border border-grid-line z-50"
