@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-screen items-start justify-center px-4 pt-8 sm:px-6 sm:pt-12">
+    <div className="flex min-h-screen items-center justify-center px-4 sm:px-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl w-full">
         {/* Ícone */}
         <div className="flex items-center justify-center order-1 md:order-2">

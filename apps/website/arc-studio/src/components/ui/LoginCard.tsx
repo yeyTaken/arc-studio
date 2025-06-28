@@ -9,17 +9,19 @@ export interface LoginCardProps {
   userMenuOpen: boolean;
   setUserMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
   userButtonRef: React.RefObject<HTMLButtonElement>;
+  userMenuRef: React.RefObject<HTMLDivElement>;
 }
 
 export default function LoginCard({
   userMenuOpen,
   setUserMenuOpen,
   userButtonRef,
+  userMenuRef,
 }: LoginCardProps) {
   const { data: session } = useSession();
   const [showWumpus, setShowWumpus] = useState(false);
   const [copied, setCopied] = useState(false);
-  const userMenuRef = useRef<HTMLDivElement>(null);
+  // const userMenuRef = useRef<HTMLDivElement>(null);
 
   // Copy ID to clipboard
   const handleCopyId = async () => {
@@ -152,10 +154,6 @@ export default function LoginCard({
               </p>
             </main>
             <footer className="select-none fixed bottom-4 left-4 right-4 backdrop-blur-sm border border-[#2c3e50] rounded-xl px-6 py-2 flex items-center justify-between shadow-xl z-50">
-              <span className="flex items-center gap-1">
-                <Kbd keys={["ctrl"]}>P</Kbd>
-              </span>
-
               <button
                 onClick={() => signOut()}
                 className="cursor-pointer p-2 rounded-md bg-red-500/10 hover:bg-red-500/20 transition text-red-300"
